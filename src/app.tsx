@@ -1,4 +1,4 @@
-import {} from 'flowbite'
+
 export function App () {
   return (
     <div>
