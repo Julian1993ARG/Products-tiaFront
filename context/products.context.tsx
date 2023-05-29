@@ -1,17 +1,19 @@
 import React, { createContext, useContext, useState } from 'react';
-import { axiosApi } from '@/services';
+import { axiosApi } from '../services';
 import { IProductList, Root, IProduct } from '@/models';
 
 interface IContextProducts {
   products: IProductList[]
   getProductByUpcCode: (upcCode: string) => Promise<void>
   setQuantity: (id: number, quantity: number) => void
+  setSalePrice: (id: number, salePrice: number) => void
   deleteProduct: (id: number) => void
 }
 export const ProductsContext = createContext<IContextProducts>({
   products: [],
   getProductByUpcCode: async () => { },
   setQuantity: () => { },
+  setSalePrice: () => { },
   deleteProduct: () => { },
 });
 
@@ -36,9 +38,11 @@ export const ProductsContextProvider = ({ children } : {children:React.ReactNode
 
   const deleteProduct = (id: number) => setProducts(prev => prev.filter(p => p.id !== id));
 
+  const setSalePrice = (id: number, salePrice: number) => setProducts(prev => prev.map(p => p.id === id ? { ...p, salePrice } : p));
+
   return (
     <ProductsContext.Provider
-      value={{ products, getProductByUpcCode, setQuantity, deleteProduct }}
+      value={{ products, getProductByUpcCode, setQuantity, deleteProduct, setSalePrice }}
     >
       {children}
     </ProductsContext.Provider>

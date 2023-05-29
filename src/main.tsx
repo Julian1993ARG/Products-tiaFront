@@ -4,7 +4,7 @@ import { Home } from '@/pages/home';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import { routes } from './models';
-import { ProductsContextProvider } from './context/products.context';
+import { ProductsContextProvider } from '../context/products.context';
 
 const router = createBrowserRouter([
   {
