@@ -1,14 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { App } from '@/app'
+import { Home } from '@/pages/home'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
 import { routes } from './models'
+import { ProductsContextProvider } from './context/products.context'
 
 const router = createBrowserRouter([
   {
     path: routes.Home.path,
-    element: <App />,
+    element: <Home />,
   },
 ])
 
@@ -21,6 +22,8 @@ if (!rootElement) {
 const root = createRoot(rootElement)
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ProductsContextProvider>
+      <RouterProvider router={router} />
+    </ProductsContextProvider>
   </StrictMode>,
 )
