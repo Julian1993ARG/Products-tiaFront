@@ -1,23 +1,28 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { CodeIcon, SearchIcon } from './SvgIcons';
 
 type Props = {
-  getProductByUpcCode: (upcCode: string) => void
+  getProductByUpcCode: (upcCode: string) => Promise<void>
 }
 
 export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
+  const [loading, setLoading] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (ref.current === null || ref.current?.value === '') return;
     if (ref.current !== null) {
       const upcCode = ref.current?.value;
       if (upcCode) {
-        getProductByUpcCode(upcCode);
+        setLoading(true);
+        await getProductByUpcCode(upcCode);
+        setLoading(false);
       }
       ref.current.value = '';
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -47,11 +52,12 @@ export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
       </div>
       <button
         type='submit'
-        className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+        disabled={loading}
+        className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:opacity-50 disabled:cursor-not-allowed'
       >
         <div className='flex text-center gap-2 justify-center items-center'>
           <SearchIcon className='w-5' />
-          Buscar!
+          {loading ? 'Buscando...' : 'Buscar'}
         </div>
       </button>
     </form>
