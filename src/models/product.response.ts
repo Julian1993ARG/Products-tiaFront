@@ -1,6 +1,6 @@
 export interface IProduct {
   id: number
-  decription: string
+  description: string
   upcCode: string
   costPrice: number
   proffit: number
