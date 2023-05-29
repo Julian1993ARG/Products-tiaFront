@@ -1,8 +1,8 @@
-import { useProductsContext } from '@/context/products.context';
+import { useProductsContext } from '@/../context/products.context';
 import { FormSearchByUpcCode, Layout, TableProducts } from '../components';
 
 export function Home () {
-  const { getProductByUpcCode, products, setQuantity, deleteProduct } = useProductsContext();
+  const { getProductByUpcCode, products, setQuantity, deleteProduct, setSalePrice } = useProductsContext();
   return (
     <Layout>
       <h1>Home</h1>
@@ -13,6 +13,7 @@ export function Home () {
           products={products}
           setQuantity={setQuantity}
           deleteProduct={deleteProduct}
+          setSalePrice={setSalePrice}
         />
       </div>
 
