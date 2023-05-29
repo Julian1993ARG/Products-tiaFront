@@ -1,23 +1,23 @@
-import { useRef } from 'react'
-import { CodeIcon, SearchIcon } from './SvgIcons'
+import { useRef } from 'react';
+import { CodeIcon, SearchIcon } from './SvgIcons';
 
 type Props = {
   getProductByUpcCode: (upcCode: string) => void
 }
 
 export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
-  const ref = useRef<HTMLInputElement>(null)
+  const ref = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (ref.current !== null) {
-      const upcCode = ref.current?.value
+      const upcCode = ref.current?.value;
       if (upcCode) {
-        getProductByUpcCode(upcCode)
+        getProductByUpcCode(upcCode);
       }
-      ref.current.value = ''
+      ref.current.value = '';
     }
-  }
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -55,5 +55,5 @@ export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
         </div>
       </button>
     </form>
-  )
+  );
 }

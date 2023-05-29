@@ -1,5 +1,5 @@
-import { routes } from '@/models'
-import { Link } from 'react-router-dom'
+import { routes } from '@/models';
+import { Link } from 'react-router-dom';
 
 export default function Header () {
   return (
@@ -22,5 +22,5 @@ export default function Header () {
         </div>
       </div>
     </nav>
-  )
+  );
 }

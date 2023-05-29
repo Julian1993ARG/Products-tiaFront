@@ -1,8 +1,8 @@
-import { useProductsContext } from '@/context/products.context'
-import { FormSearchByUpcCode, Layout } from '../components'
+import { useProductsContext } from '@/context/products.context';
+import { FormSearchByUpcCode, Layout } from '../components';
 
 export function Home () {
-  const { getProductByUpcCode, products } = useProductsContext()
+  const { getProductByUpcCode, products } = useProductsContext();
 
   return (
     <Layout>
@@ -11,5 +11,5 @@ export function Home () {
       <FormSearchByUpcCode getProductByUpcCode={getProductByUpcCode} />
 
     </Layout>
-  )
+  );
 }
