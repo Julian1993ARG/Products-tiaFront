@@ -7,3 +7,7 @@ export interface IProduct {
   salePrice: number
   supplierId: number
 }
+
+export interface IProductList extends IProduct{
+  quantity:number
+}
