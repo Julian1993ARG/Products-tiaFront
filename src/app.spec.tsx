@@ -1,8 +1,8 @@
-import { App } from '@/app'
+import { Home } from '@/pages/home'
 import { render, screen } from '@testing-library/react'
 
 it('Test', () => {
-  render(<App />)
+  render(<Home />)
 
   const button = screen.getByRole('button')
   expect(button).toBeEnabled()
