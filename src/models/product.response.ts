@@ -8,6 +8,6 @@ export interface IProduct {
   supplierId: number
 }
 
-export interface IProductList extends IProduct{
+export interface IProductList extends Omit<IProduct, 'supplierId'>{
   quantity:number
 }

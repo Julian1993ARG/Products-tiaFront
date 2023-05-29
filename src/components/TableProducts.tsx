@@ -1,17 +1,10 @@
-import { IProductList } from '@/models';
 import { useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
-import { DetailsColumn, TrashSvg } from './';
+import { DetailsColumn, FormDetailsColum, TrashSvg } from './';
+import { useProductsContext } from 'context/products.context';
 
-type PropsTable = {
-  products: IProductList[]
-  setQuantity: (id: number, quantity: number) => void
-  deleteProduct: (id: number) => void
-  setSalePrice: (id: number, salePrice: number) => void
-  resetProducts: () => void
-}
-
-export default function TableProducts ({ products, setQuantity, deleteProduct, setSalePrice, resetProducts }: PropsTable) {
+export default function TableProducts () {
+  const { products, setQuantity, deleteProduct, setSalePrice, resetProducts, addProductToList } = useProductsContext();
   const [total, setTotal] = useState(0);
   const [change, setChange] = useState(0);
 
@@ -99,6 +92,10 @@ export default function TableProducts ({ products, setQuantity, deleteProduct, s
             updateSalePriceContext={setSalePrice}
           />
         ))}
+
+        <FormDetailsColum
+          addProduct={addProductToList}
+        />
 
       </tbody>
     </table>
