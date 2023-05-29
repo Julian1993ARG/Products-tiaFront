@@ -7,7 +7,7 @@ import { routes } from './models'
 
 const router = createBrowserRouter([
   {
-    path: routes[0].path,
+    path: routes.Home.path,
     element: <App />,
   },
 ])

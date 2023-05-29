@@ -8,6 +8,8 @@ class Route {
   public name: string
 }
 
-export const routes: Route[] = [
-  new Route('/', 'Home'),
-]
+class Routes {
+  static Home = new Route('/', 'Home')
+}
+
+export const routes = Routes
