@@ -10,6 +10,7 @@ interface IContextProducts {
   deleteProduct: (id: number) => void
   resetProducts: () => void
   addProductToList: (product: IProductList) => void
+  setProduct: (product: IProduct) => void
 }
 export const ProductsContext = createContext<IContextProducts>({
   products: [],
@@ -19,6 +20,7 @@ export const ProductsContext = createContext<IContextProducts>({
   deleteProduct: () => { },
   resetProducts: () => { },
   addProductToList: () => { },
+  setProduct: () => { },
 });
 
 export const ProductsContextProvider = ({ children } : {children:React.ReactNode}) => {
@@ -50,7 +52,7 @@ export const ProductsContextProvider = ({ children } : {children:React.ReactNode
 
   return (
     <ProductsContext.Provider
-      value={{ products, getProductByUpcCode, setQuantity, deleteProduct, setSalePrice, resetProducts, addProductToList }}
+      value={{ products, getProductByUpcCode, setQuantity, deleteProduct, setSalePrice, resetProducts, addProductToList, setProduct }}
     >
       {children}
     </ProductsContext.Provider>

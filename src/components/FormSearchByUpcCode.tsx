@@ -25,6 +25,7 @@ export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
 
   return (
     <form
+      className='col-span-2 w-full relative '
       onSubmit={handleSubmit}
     >
       <label
@@ -42,7 +43,7 @@ export default function FormSearchByUpcCode ({ getProductByUpcCode }: Props) {
           type='text'
           id='email-address-icon'
           ref={ref}
-          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 p-2.5  '
           placeholder='Por ejemplo 123456789'
           minLength={3}
           maxLength={20}
