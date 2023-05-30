@@ -1,7 +1,7 @@
 import { useProductsContext } from '@/../context/products.context';
 import { FormSearchByName, FormSearchByUpcCode, Layout, TableProducts } from '../components';
 
-export function Home () {
+export default function Home () {
   const { getProductByUpcCode } = useProductsContext();
   return (
     <Layout>

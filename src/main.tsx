@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Home } from '@/pages/home';
+import { Home, Admin } from '@/pages';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import { routes } from './models';
@@ -10,6 +10,10 @@ const router = createBrowserRouter([
   {
     path: routes.Home.path,
     element: <Home />,
+  },
+  {
+    path: routes.Admin.path,
+    element: <Admin />,
   },
 ]);
 

@@ -28,7 +28,7 @@ export default function FormSearchByName () {
           id='search'
           name='search'
           className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 p-2.5'
-          placeholder='Ingresa aqui por ejemplo "Gaseosa Coca Cola"'
+          placeholder='Ingresa aquí por ejemplo "Gaseosa Coca Cola"'
           value={description}
           onChange={handleInput}
           autoComplete='off'

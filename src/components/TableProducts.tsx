@@ -37,6 +37,7 @@ export default function TableProducts () {
             className='bg-gray-50 mx-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/5 p-2.'
             placeholder='0'
             onChange={handleChange}
+            disabled={products.length === 0}
           />
           <span
             className={`${change !== 0 ? 'block' : 'hidden'} ${change > 0 ? 'text-green-500' : 'text-red-500'}`}

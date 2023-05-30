@@ -9,7 +9,8 @@ class Route {
 }
 
 class Routes {
-  static Home = new Route('/', 'Home');
+  static Home = new Route('/', 'Inicio');
+  static Admin = new Route('/admin', 'Administración');
 }
 
 export const routes = Routes;
