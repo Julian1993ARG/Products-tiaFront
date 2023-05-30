@@ -2,9 +2,20 @@ import Header from './Header';
 
 type LayoutProps = {
   children: React.ReactNode
+  admin?: boolean
 }
 
-export default function Layout ({ children }: LayoutProps) {
+export default function Layout ({ children, admin = false }: LayoutProps) {
+  if (admin) {
+    return (
+      <div className='min-w-full min-h-screen '>
+        <Header />
+        <main className='max-w-screen-2xl rounded-r-xl mx-auto mt-2 bg-white'>
+          {children}
+        </main>
+      </div>
+    );
+  };
   return (
     <div className='min-w-full min-h-screen '>
       <Header />

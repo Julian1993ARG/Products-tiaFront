@@ -72,7 +72,7 @@ const SearchBar = ({ data, loading, notFound }:Props) => {
                      className='flex items-center ml-4 my-2 cursor-pointer '
                      onClick={() => setProduct(product)}
                    >
-                     <span>{product.description}</span>
+                     <span>{product.description} $ {product.costPrice.toLocaleString('en-US')}</span>
                    </li>
                  ))
                }
