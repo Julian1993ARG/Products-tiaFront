@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Layout } from '@/components';
-import { Outlet } from 'react-router';
+import { Layout, ShoppingCartSvg } from '@/components';
+import { routes } from '@/models';
+import { Outlet, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function Admin () {
   return (
@@ -12,6 +14,14 @@ export default function Admin () {
 }
 
 const Aside = () => {
+  const { pathname } = useLocation();
+  const hrefRoutes = [{
+    to: routes.Admin.path,
+    classNameTo: 'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700',
+    label: 'Productos',
+    icon: <ShoppingCartSvg className='flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75' />,
+  }];
+
   return (
     <>
       <button data-drawer-target='logo-sidebar' data-drawer-toggle='logo-sidebar' aria-controls='logo-sidebar' type='button' className='inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'>
@@ -23,18 +33,20 @@ const Aside = () => {
 
       <aside id='logo-sidebar' className='fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0' aria-label='Sidebar'>
         <div className='h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800'>
-          <a href='https://flowbite.com/' className='flex items-center pl-2.5 mb-5'>
+          <Link to={routes.Home.path} className='flex items-center pl-2.5 mb-5'>
             <img src='https://flowbite.com/docs/images/logo.svg' className='h-6 mr-3 sm:h-7' alt='Flowbite Logo' />
-            <span className='self-center text-xl font-semibold whitespace-nowrap dark:text-white'>Flowbite</span>
-          </a>
+            <span className='self-center text-xl font-semibold whitespace-nowrap dark:text-white'>Inicio</span>
+          </Link>
           <ul className='space-y-2 font-medium'>
 
-            <li>
-              <a href='#' className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'>
-                <svg aria-hidden='true' className='flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fillRule='evenodd' d='M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z' clipRule='evenodd' /></svg>
-                <span className='flex-1 ml-3 whitespace-nowrap'>Products</span>
-              </a>
-            </li>
+            {hrefRoutes.map(({ to, label, icon, classNameTo }, index) => (
+              <li key={index}>
+                <Link to={to} className={`${classNameTo} ${to === pathname ? '!text-blue-500 bg-gray-200 hover:bg-gray-200' : ''}`}>
+                  {icon}
+                  {label}
+                </Link>
+              </li>
+            ))}
 
           </ul>
         </div>
