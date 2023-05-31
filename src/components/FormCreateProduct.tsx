@@ -18,11 +18,13 @@ export default function FormCreateProduct () {
       proffit: 50,
       supplierId: 0,
     },
-    onSubmit: (values: InitialProps) => {},
+    onSubmit: (values: InitialProps) => {
+      console.log(values);
+    },
   });
   return (
-    <div className='p-4 sm:ml-64'>
-      <form>
+    <div className='p-4 '>
+      <form onSubmit={formik.handleSubmit}>
         <div className='relative z-0 w-full mb-6 group'>
           <DefaultInput
             id='description'
