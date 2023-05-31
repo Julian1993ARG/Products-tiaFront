@@ -1,27 +1,31 @@
-import { useFormik } from 'formik';
 import React, { ChangeEvent, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from 'react';
+import { useFormik } from 'formik';
+import { useGetAllSuppliers, usePostAProduct } from 'hooks';
 
 type InitialProps = {
   description: string;
   upcCode: string;
   costPrice: number;
   proffit: number;
-  supplierId: number;
+  supplierId: number | null;
 };
 
 export default function FormCreateProduct () {
+  const { data } = useGetAllSuppliers();
+  const { postAProduct } = usePostAProduct();
   const formik = useFormik({
     initialValues: {
       description: '',
       upcCode: '',
       costPrice: 1,
       proffit: 50,
-      supplierId: 0,
+      supplierId: null,
     },
-    onSubmit: (values: InitialProps) => {
-      console.log(values);
+    onSubmit: async (values: InitialProps) => {
+      await postAProduct(values);
     },
   });
+
   return (
     <div className='p-4 '>
       <form onSubmit={formik.handleSubmit}>
@@ -81,8 +85,21 @@ export default function FormCreateProduct () {
               Redondeo de precio en %, por defecto 50%
             </DefaultLabel>
           </div>
+          <div className='relative z-0 w-full mb-6 group'>
+            <label htmlFor='supplierId' className='sr-only'>Selecciona el proveedor</label>
+            <select
+              name='supplierId'
+              id='supplierId'
+              className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+              onChange={formik.handleChange}
+            >
+              <option value={undefined}>Proveedor</option>
+              {data.suppliers.map(supplier => (
+                <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+              ))}
+            </select>
+          </div>
 
-          <div className='relative z-0 w-full mb-6 group' />
         </div>
 
         <button type='submit' className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Submit</button>
