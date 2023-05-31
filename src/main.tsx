@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Home, Admin } from '@/pages';
+import { FormCreateProduct } from '@/components';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import { routes } from './models';
@@ -14,6 +15,12 @@ const router = createBrowserRouter([
   {
     path: routes.Admin.path,
     element: <Admin />,
+    children: [
+      {
+        path: routes.Admin.path,
+        element: <FormCreateProduct />,
+      },
+    ],
   },
 ]);
 
