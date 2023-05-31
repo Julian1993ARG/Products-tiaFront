@@ -1,53 +1,136 @@
+import { useFormik } from 'formik';
+import React, { ChangeEvent, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from 'react';
+
+type InitialProps = {
+  description: string;
+  upcCode: string;
+  costPrice: number;
+  proffit: number;
+  supplierId: number;
+};
+
 export default function FormCreateProduct () {
+  const formik = useFormik({
+    initialValues: {
+      description: '',
+      upcCode: '',
+      costPrice: 1,
+      proffit: 50,
+      supplierId: 0,
+    },
+    onSubmit: (values: InitialProps) => {},
+  });
   return (
     <div className='p-4 sm:ml-64'>
-      <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700'>
-        <div className='grid grid-cols-3 gap-4 mb-4'>
-          <div className='flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
+      <form>
+        <div className='relative z-0 w-full mb-6 group'>
+          <DefaultInput
+            id='description'
+            name='description'
+            onChange={formik.handleChange}
+            value={formik.values.description}
+          />
+          <DefaultLabel htmlFor='description'>
+            Descripción del producto, regla (detalle, marca, medida) ej: Gaseosa cola light Coca Cola 2,15Lt.
+          </DefaultLabel>
+        </div>
+
+        <div className='grid md:grid-cols-2 md:gap-6'>
+          <div className='relative z-0 w-full mb-6 group'>
+            <DefaultInput
+              id='upcCode'
+              name='upcCode'
+              onChange={formik.handleChange}
+              value={formik.values.upcCode}
+              min={3}
+              max={20}
+            />
+            <DefaultLabel htmlFor='upcCode'>
+              Código del product (UPC)
+            </DefaultLabel>
           </div>
-          <div className='flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
+
+          <div className='relative z-0 w-full mb-6 group'>
+            <DefaultInput
+              id='costPrice'
+              name='costPrice'
+              onChange={formik.handleChange}
+              value={formik.values.costPrice}
+              min={1}
+              type='number'
+            />
+            <DefaultLabel htmlFor='costPrice'>
+              Precio costo del producto $$
+            </DefaultLabel>
           </div>
         </div>
-        <div className='flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800'>
-          <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
+
+        <div className='grid md:grid-cols-2 md:gap-6'>
+          <div className='relative z-0 w-full mb-6 group'>
+            <DefaultInput
+              id='proffit'
+              name='proffit'
+              onChange={formik.handleChange}
+              value={formik.values.proffit}
+              min={1}
+              type='number'
+            />
+            <DefaultLabel htmlFor='proffit'>
+              Redondeo de precio en %, por defecto 50%
+            </DefaultLabel>
+          </div>
+
+          <div className='relative z-0 w-full mb-6 group' />
         </div>
-        <div className='grid grid-cols-2 gap-4 mb-4'>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-        </div>
-        <div className='flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800'>
-          <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-        </div>
-        <div className='grid grid-cols-2 gap-4'>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-          <div className='flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800'>
-            <p className='text-2xl text-gray-400 dark:text-gray-500'>+</p>
-          </div>
-        </div>
-      </div>
+
+        <button type='submit' className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>Submit</button>
+      </form>
     </div>
   );
 }
+
+interface DefaultInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string | number;
+  id: string;
+  name: string;
+}
+
+const DefaultInput: React.FC<DefaultInputProps> = ({
+  onChange,
+  value,
+  id,
+  name,
+  type = 'text',
+  ...props
+}) => {
+  return (
+    <input
+      name={name}
+      id={id}
+      className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+      placeholder=' '
+      required
+      autoComplete='off'
+      onChange={onChange}
+      type={type}
+      value={value}
+      {...props}
+    />
+  );
+};
+
+type DefaultLabelProps = LabelHTMLAttributes<HTMLLabelElement> & {
+  htmlFor: string;
+  children: ReactNode;
+}
+const DefaultLabel = ({ htmlFor, children }:DefaultLabelProps) => {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+    >
+      {children}
+    </label>
+  );
+};
