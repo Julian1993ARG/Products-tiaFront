@@ -5,6 +5,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import { routes } from './models';
 import { ProductsContextProvider } from '../context/products.context';
+import { SnackbarProvider } from 'notistack';
+import { SnackbarUtilitiesConfigurator } from './utils';
+import { AxiosInterceptor } from '../interceptors/axios.interceptor';
+
+AxiosInterceptor();
 
 const router = createBrowserRouter([
   {
@@ -32,8 +37,11 @@ if (!rootElement) {
 const root = createRoot(rootElement);
 root.render(
   <StrictMode>
-    <ProductsContextProvider>
-      <RouterProvider router={router} />
-    </ProductsContextProvider>
+    <SnackbarProvider maxSnack={3}>
+      <SnackbarUtilitiesConfigurator />
+      <ProductsContextProvider>
+        <RouterProvider router={router} />
+      </ProductsContextProvider>
+    </SnackbarProvider>
   </StrictMode>,
 );
