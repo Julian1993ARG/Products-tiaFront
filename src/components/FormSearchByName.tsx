@@ -39,9 +39,7 @@ export default function FormSearchByName () {
         />
       </form>
       {description.length > 2 && (<SearchBar
-        data={data.products}
-        loading={data.loading}
-        notFound={data.notFound}
+        data={data}
                                   />)}
     </div>
   );
@@ -49,20 +47,12 @@ export default function FormSearchByName () {
 
 type Props = {
   data: IProduct[] | null
-  loading: boolean
-  notFound: boolean
 }
 
-const SearchBar = ({ data, loading, notFound }:Props) => {
+const SearchBar = ({ data }:Props) => {
   const { setProduct } = useProductsContext();
-  if (loading && !notFound) {
-    return (
-      <ul className='absolute top-15 right-0 w-full bg-gray-200 rounded overflow-x-hidden  py-2  backdrop-filter backdrop-blur-md bg-opacity-60  scrollbar-thin scrollbar-thumb-gray-100 scrollbar-track-gray-200  z-10 h-60 '>
-        <Spinner />
-      </ul>
-    );
-  };
-  if (data !== null && !notFound) {
+
+  if (data !== null && data.length > 0) {
     return (
       <ul className='absolute top-15 right-0 w-full bg-gray-200 rounded overflow-x-hidden  py-2  backdrop-filter backdrop-blur-md bg-opacity-60  scrollbar-thin scrollbar-thumb-gray-100 scrollbar-track-gray-200  z-10 h-60 '>
         {
@@ -76,20 +66,8 @@ const SearchBar = ({ data, loading, notFound }:Props) => {
                    </li>
                  ))
                }
-        {/* eslint-disable-next-line react/jsx-closing-tag-location */}
       </ul>
     );
   }
-
-  if (notFound) {
-    return (
-      <ul className='absolute top-15 right-0 w-full bg-gray-200 rounded overflow-x-hidden  py-2  backdrop-filter backdrop-blur-md bg-opacity-60  scrollbar-thin scrollbar-thumb-gray-100 scrollbar-track-gray-200  z-10 h-60 '>
-        <li className='flex items-center ml-4 my-2 '>
-          <span>No se encontraron resultados</span>
-        </li>
-      </ul>
-    );
-  };
-
   return null;
 };

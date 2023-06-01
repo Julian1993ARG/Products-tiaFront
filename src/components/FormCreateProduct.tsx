@@ -1,4 +1,5 @@
-import React, { ChangeEvent, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ChangeEvent, FC, InputHTMLAttributes, LabelHTMLAttributes, ReactNode, useLayoutEffect } from 'react';
 import { useFormik } from 'formik';
 import { useGetAllSuppliers, usePostAProduct } from 'hooks';
 
@@ -11,8 +12,9 @@ type InitialProps = {
 };
 
 export default function FormCreateProduct () {
-  const { data } = useGetAllSuppliers();
+  const { data, getAllSuppliers } = useGetAllSuppliers();
   const { postAProduct } = usePostAProduct();
+  useLayoutEffect(() => { getAllSuppliers(); }, []);
   const formik = useFormik({
     initialValues: {
       description: '',
@@ -115,7 +117,7 @@ interface DefaultInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-const DefaultInput: React.FC<DefaultInputProps> = ({
+const DefaultInput: FC<DefaultInputProps> = ({
   onChange,
   value,
   id,

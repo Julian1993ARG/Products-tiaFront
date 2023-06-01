@@ -20,13 +20,15 @@ export const AxiosInterceptor = () => {
   axiosApi.interceptors.response.use(
     (response) => {
       if (response.status === 204) SnackbarUtilities.success('Success');
-      console.log('Petición');
+      console.log(response.data);
       return response;
     },
     (error) => {
-      if (error.data.errorMessage) SnackbarUtilities.error(error.data.errorMessage[0]);
-      SnackbarUtilities.error(error.code);
+      // console.log(error.response);
+      if (error.response.data.errorMessage) SnackbarUtilities.error(error.response.data.errorMessage[0]);
+      // SnackbarUtilities.error(error.code);
       return Promise.reject(error);
+      // return error;
     },
   );
 };

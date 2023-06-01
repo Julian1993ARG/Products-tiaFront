@@ -16,6 +16,7 @@ export default function useGetAllSuppliers () {
   });
 
   const getAllSuppliers = async () => {
+    if (data.suppliers.length > 0) return;
     setData({
       ...data,
       isLoading: true,
@@ -30,9 +31,5 @@ export default function useGetAllSuppliers () {
     });
   };
 
-  useLayoutEffect(() => {
-    getAllSuppliers();
-  }, []);
-
-  return { data };
+  return { data, getAllSuppliers };
 }
