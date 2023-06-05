@@ -20,7 +20,7 @@ export const AxiosInterceptor = () => {
   axiosApi.interceptors.response.use(
     (response) => {
       if (response.status === 204) SnackbarUtilities.success('Success');
-      console.log(response.data);
+      // console.log(response.data);
       return response;
     },
     (error) => {

@@ -30,6 +30,7 @@ export default function FormCreateProduct () {
 
   return (
     <div className='p-4 '>
+      <h2 className=' text-xl'>Crear un producto!</h2>
       <form onSubmit={formik.handleSubmit}>
         <div className='relative z-0 w-full mb-6 group'>
           <DefaultInput
